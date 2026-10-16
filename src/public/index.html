@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApoioLocal - Conexão e Solidariedade Comunitária</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header & Navbar -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="logo">
+        <span class="logo-icon">🤝</span>
+        <div class="logo-text">
+          <h1>ApoioLocal</h1>
+          <span class="badge-mvp">MVP Comunitário</span>
+        </div>
+      </div>
+      <nav class="nav-actions">
+        <a href="#mural" class="nav-link">Mural de Demandas</a>
+        <a href="#pontos" class="nav-link">Pontos de Coleta</a>
+        <button id="btnOpenNewDemand" class="btn btn-primary">+ Cadastrar Demanda</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <span class="hero-pill">📍 Conectando quem precisa a quem quer ajudar</span>
+        <h2>Solidariedade direta, transparente e no seu bairro.</h2>
+        <p>Acompanhe em tempo real as necessidades urgentes de cozinhas solidárias, lares e famílias locais. Doe o que puder e transforme a nossa comunidade.</p>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span class="stat-num" id="statActiveDemands">-</span>
+            <span class="stat-label">Demandas Ativas</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="statCompletedDemands">-</span>
+            <span class="stat-label">Metas Concluídas</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num" id="statCollectionPoints">-</span>
+            <span class="stat-label">Pontos de Coleta</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container main-content" id="mural">
+    <div class="section-header">
+      <div>
+        <h3>Mural Comunitário de Demandas</h3>
+        <p>Escolha uma demanda para colaborar ou filtrar por prioridade.</p>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-category="ALL">Todas</button>
+        <button class="filter-btn" data-category="ALIMENTOS">🍚 Alimentos</button>
+        <button class="filter-btn" data-category="HIGIENE">🧼 Higiene</button>
+        <button class="filter-btn" data-category="ROUPAS">👕 Roupas</button>
+        <button class="filter-btn" data-category="OUTROS">📦 Outros</button>
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="cards-grid" id="demandsGrid">
+      <div class="loading-state">Carregando demandas da comunidade...</div>
+    </div>
+
+    <!-- Pontos de Coleta Section -->
+    <section class="collection-section" id="pontos">
+      <div class="section-header">
+        <div>
+          <h3>Locais de Entrega & Coleta Física</h3>
+          <p>Pontos parceiros onde você pode entregar suas doações com segurança no bairro.</p>
+        </div>
+      </div>
+      <div class="points-grid" id="pointsGrid">
+        <!-- Renderizado dinamicamente -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Nova Demanda -->
+  <div class="modal-overlay" id="modalDemand">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4>Cadastrar Necessidade Comunitária</h4>
+        <button class="modal-close" id="btnCloseDemandModal">&times;</button>
+      </div>
+      <form id="formNewDemand" class="modal-form">
+        <div class="form-group">
+          <label for="demandTitle">Título Resumido da Demanda *</label>
+          <input type="text" id="demandTitle" placeholder="Ex: Arroz e Feijão para 30 famílias" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="demandCategory">Categoria *</label>
+            <select id="demandCategory" required>
+              <option value="ALIMENTOS">Alimentos</option>
+              <option value="HIGIENE">Higiene</option>
+              <option value="ROUPAS">Roupas</option>
+              <option value="OUTROS">Outros</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="demandUrgent">Urgência</label>
+            <select id="demandUrgent">
+              <option value="false">Normal</option>
+              <option value="true">Urgente (Prioridade Máxima)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="demandTarget">Quantidade Necessária *</label>
+            <input type="number" id="demandTarget" min="1" placeholder="Ex: 50" required>
+          </div>
+          <div class="form-group">
+            <label for="demandUnit">Unidade de Medida *</label>
+            <input type="text" id="demandUnit" placeholder="Ex: kg, cestas, pacotes" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="demandEntity">Entidade / Grupo Beneficiário *</label>
+          <input type="text" id="demandEntity" placeholder="Ex: Cozinha Solidária São Francisco" required>
+        </div>
+        <div class="form-group">
+          <label for="demandPhone">Telefone / WhatsApp de Contato *</label>
+          <input type="text" id="demandPhone" placeholder="Ex: (11) 99999-8888" required>
+        </div>
+        <div class="form-group">
+          <label for="demandDesc">Descrição Detalhada *</label>
+          <textarea id="demandDesc" rows="3" placeholder="Explique quem receberá e detalhes sobre os itens..." required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="btnCancelDemand">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Publicar Demanda</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Doar -->
+  <div class="modal-overlay" id="modalDonate">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4>Registrar Intenção de Doação</h4>
+        <button class="modal-close" id="btnCloseDonateModal">&times;</button>
+      </div>
+      <form id="formDonate" class="modal-form">
+        <input type="hidden" id="donateDemandId">
+        <div class="target-summary" id="donateTargetSummary">
+          <!-- Dados da demanda selecionada -->
+        </div>
+        <div class="form-group">
+          <label for="donorName">Seu Nome Completo *</label>
+          <input type="text" id="donorName" placeholder="Ex: Maria Pereira" required>
+        </div>
+        <div class="form-group">
+          <label for="donorPhone">WhatsApp para Coordenação da Entrega *</label>
+          <input type="text" id="donorPhone" placeholder="Ex: (11) 98765-4321" required>
+        </div>
+        <div class="form-group">
+          <label for="donateQuantity">Quantidade a Doar (<span id="donateUnitLabel">un</span>) *</label>
+          <input type="number" id="donateQuantity" min="1" placeholder="Ex: 5" required>
+        </div>
+        <div class="form-group">
+          <label for="donatePoint">Ponto de Entrega Preferido (Opcional)</label>
+          <select id="donatePoint">
+            <option value="">Entrega direta com a entidade</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" id="btnCancelDonate">Voltar</button>
+          <button type="submit" class="btn btn-success">Confirmar Doação</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="container footer-content">
+      <p>ApoioLocal MVP • Desenvolvido com foco em Engenharia de Software, Testes Automatizados e Impacto Comunitário.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
