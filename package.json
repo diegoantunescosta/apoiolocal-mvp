@@ -1,6 +1,7 @@
 {
   "name": "apoiolocal-mvp",
   "version": "1.0.0",
+  "type": "module",
   "description": "MVP de Conexão Comunitária para Doações e Apoio Local",
   "main": "dist/server/index.js",
   "scripts": {
