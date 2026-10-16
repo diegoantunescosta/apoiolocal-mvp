@@ -79,4 +79,26 @@ export class ApoioLocalService {
   async listCollectionPoints(): Promise<CollectionPoint[]> {
     return this.pointRepo.findAll();
   }
+
+  // ---- Casos de Uso de Métricas e Observabilidade ----
+
+  async getCommunityMetrics() {
+    const demands = await this.demandRepo.findAll();
+    const points = await this.pointRepo.findAll();
+
+    const activeDemands = demands.filter(d => d.status !== 'CONCLUIDA');
+    const completedDemands = demands.filter(d => d.status === 'CONCLUIDA');
+    const urgentDemands = demands.filter(d => d.urgent && d.status !== 'CONCLUIDA');
+    const totalCollected = demands.reduce((acc, d) => acc + d.collectedQuantity, 0);
+
+    return {
+      totalDemands: demands.length,
+      activeDemandsCount: activeDemands.length,
+      completedDemandsCount: completedDemands.length,
+      urgentDemandsCount: urgentDemands.length,
+      totalCollectedItems: totalCollected,
+      activeCollectionPointsCount: points.length
+    };
+  }
 }
+

@@ -96,6 +96,16 @@ export function createApp() {
     });
   });
 
+  // Métricas Consolidadas da Comunidade
+  app.get('/api/stats', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const stats = await service.getCommunityMetrics();
+      res.json(stats);
+    } catch (err) {
+      next(err);
+    }
+  });
+
   // ---- Rotas de Demandas ----
   app.get('/api/demands', async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -113,7 +123,8 @@ export function createApp() {
 
   app.get('/api/demands/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const demand = await service.getDemandById(req.params.id);
+      const id = String(req.params.id);
+      const demand = await service.getDemandById(id);
       res.json(demand);
     } catch (err: any) {
       res.status(404).json({ error: err.message });
@@ -141,7 +152,8 @@ export function createApp() {
 
   app.get('/api/demands/:id/donations', async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const donations = await service.listDonationsByDemand(req.params.id);
+      const id = String(req.params.id);
+      const donations = await service.listDonationsByDemand(id);
       res.json(donations);
     } catch (err) {
       next(err);

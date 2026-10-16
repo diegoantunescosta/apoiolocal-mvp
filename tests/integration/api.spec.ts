@@ -18,6 +18,15 @@ describe('API Endpoints - Testes Automatizados de Integração', () => {
     expect(response.body.service).toBe('apoiolocal-mvp');
   });
 
+  it('GET /api/stats deve retornar métricas agregadas da comunidade', async () => {
+    const response = await request(app).get('/api/stats');
+
+    expect(response.status).toBe(200);
+    expect(response.body.totalDemands).toBeGreaterThanOrEqual(3);
+    expect(response.body.activeDemandsCount).toBeDefined();
+    expect(response.body.activeCollectionPointsCount).toBeGreaterThanOrEqual(2);
+  });
+
   it('GET /api/demands deve listar demandas cadastradas', async () => {
     const response = await request(app).get('/api/demands');
 
