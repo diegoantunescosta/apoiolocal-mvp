@@ -20,7 +20,7 @@ export function createApp() {
   app.use(express.json());
 
   // Servir frontend estático da pasta public
-  const publicDir = path.resolve(__dirname, '../public');
+  const publicDir = path.resolve(process.cwd(), 'src/public');
   app.use(express.static(publicDir));
 
   // Instâncias padrão dos repositórios e serviços com dados de demonstração

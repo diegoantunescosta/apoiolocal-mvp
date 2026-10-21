@@ -147,6 +147,16 @@ function populatePointsSelect(points) {
 }
 
 function setupEventListeners() {
+  // Toggle Alto Contraste
+  const btnToggleContrast = document.getElementById('btnToggleContrast');
+  if (btnToggleContrast) {
+    btnToggleContrast.addEventListener('click', () => {
+      document.body.classList.toggle('high-contrast');
+      const isHigh = document.body.classList.contains('high-contrast');
+      btnToggleContrast.textContent = isHigh ? '☀️ Contraste Padrão' : '👁️ Alto Contraste';
+    });
+  }
+
   // Filtros
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {

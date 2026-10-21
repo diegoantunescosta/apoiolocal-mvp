@@ -322,6 +322,7 @@ body {
   margin-bottom: 1.25rem;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -526,6 +527,90 @@ body {
   font-size: 0.85rem;
 }
 
+/* Modo de Alto Contraste (Acessibilidade WCAG 2.1 AAA) */
+body.high-contrast {
+  --bg-main: #000000;
+  --bg-card: #121212;
+  --text-main: #ffffff;
+  --text-muted: #e2e8f0;
+  --border: #facc15;
+  --primary: #facc15;
+  --primary-hover: #eab308;
+  --primary-light: #1f2937;
+  --success: #4ade80;
+}
+
+body.high-contrast .app-header {
+  background: #000000;
+  border-bottom: 2px solid #facc15;
+}
+
+body.high-contrast .logo-text h1,
+body.high-contrast .hero-content h2,
+body.high-contrast .section-header h3,
+body.high-contrast .demand-card h4,
+body.high-contrast .point-card h5 {
+  color: #ffffff !important;
+}
+
+body.high-contrast .hero-section {
+  background: #000000;
+  border-bottom: 2px solid #facc15;
+}
+
+body.high-contrast .hero-pill {
+  background: #000000;
+  color: #facc15;
+  border: 2px solid #facc15;
+}
+
+body.high-contrast .stat-card,
+body.high-contrast .demand-card,
+body.high-contrast .point-card,
+body.high-contrast .modal-card {
+  background: #18181b;
+  border: 2px solid #facc15;
+}
+
+body.high-contrast .btn-primary {
+  background: #facc15;
+  color: #000000;
+  font-weight: 800;
+  border: 2px solid #ffffff;
+}
+
+body.high-contrast .btn-secondary {
+  background: #27272a;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+body.high-contrast .filter-btn {
+  background: #18181b;
+  color: #ffffff;
+  border: 2px solid #e2e8f0;
+}
+
+body.high-contrast .filter-btn.active {
+  background: #facc15;
+  color: #000000;
+  border-color: #facc15;
+  font-weight: 800;
+}
+
+body.high-contrast .progress-bar-bg {
+  background: #3f3f46;
+  border: 1px solid #ffffff;
+}
+
+body.high-contrast .progress-bar-fill {
+  background: #facc15;
+}
+
+body.high-contrast .progress-bar-fill.completed {
+  background: #4ade80;
+}
+
 @media (max-width: 640px) {
   .hero-content h2 {
     font-size: 1.75rem;
@@ -537,3 +622,4 @@ body {
     display: none;
   }
 }
+
